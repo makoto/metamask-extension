@@ -11,7 +11,6 @@ import { tokenInfoGetter } from '../../helpers/utils/token-util';
 import {
   ADD_COLLECTIBLE_ROUTE,
   CONFIRM_IMPORT_TOKEN_ROUTE,
-  EXPERIMENTAL_ROUTE,
   ADVANCED_ROUTE,
 } from '../../helpers/constants/routes';
 import TextField from '../../components/ui/text-field';
@@ -25,9 +24,6 @@ import { TYPOGRAPHY, FONT_WEIGHT } from '../../helpers/constants/design-system';
 import Button from '../../components/ui/button';
 import TokenSearch from './token-search';
 import TokenList from './token-list';
-
-/*eslint-disable prefer-destructuring*/
-const TOKEN_DETECTION_V2 = process.env.TOKEN_DETECTION_V2;
 
 const emptyAddr = '0x0000000000000000000000000000000000000000';
 
@@ -417,37 +413,13 @@ class ImportToken extends Component {
 
     return (
       <div className="import-token__custom-token-form">
-        {TOKEN_DETECTION_V2 ? (
-          <ActionableMessage
-            type={isTokenDetectionSupported ? 'warning' : 'default'}
-            message={t(
-              isTokenDetectionSupported
-                ? 'customTokenWarningInTokenDetectionNetwork'
-                : 'customTokenWarningInNonTokenDetectionNetwork',
-              [
-                <Button
-                  type="link"
-                  key="import-token-fake-token-warning"
-                  className="import-token__link"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href={ZENDESK_URLS.TOKEN_SAFETY_PRACTICES}
-                >
-                  {t('learnScamRisk')}
-                </Button>,
-              ],
-            )}
-            withRightButton
-            useIcon
-            iconFillColor={
-              isTokenDetectionSupported
-                ? 'var(--color-warning-default)'
-                : 'var(--color-info-default)'
-            }
-          />
-        ) : (
-          <ActionableMessage
-            message={this.context.t('fakeTokenWarning', [
+        <ActionableMessage
+          type={isTokenDetectionSupported ? 'warning' : 'default'}
+          message={t(
+            isTokenDetectionSupported
+              ? 'customTokenWarningInTokenDetectionNetwork'
+              : 'customTokenWarningInNonTokenDetectionNetwork',
+            [
               <Button
                 type="link"
                 key="import-token-fake-token-warning"
@@ -456,15 +428,18 @@ class ImportToken extends Component {
                 target="_blank"
                 href={ZENDESK_URLS.TOKEN_SAFETY_PRACTICES}
               >
-                {this.context.t('learnScamRisk')}
+                {t('learnScamRisk')}
               </Button>,
-            ])}
-            type="warning"
-            withRightButton
-            useIcon
-            iconFillColor="var(--color-warning-default)"
-          />
-        )}
+            ],
+          )}
+          withRightButton
+          useIcon
+          iconFillColor={
+            isTokenDetectionSupported
+              ? 'var(--color-warning-default)'
+              : 'var(--color-info-default)'
+          }
+        />
         <TextField
           id="custom-address"
           label={t('tokenContractAddress')}
@@ -562,32 +537,19 @@ class ImportToken extends Component {
       <div className="import-token__search-token">
         {!useTokenDetection && (
           <ActionableMessage
-            message={
-              TOKEN_DETECTION_V2
-                ? t('tokenDetectionAlertMessage', [
-                    networkName,
-                    <Button
-                      type="link"
-                      key="token-detection-announcement"
-                      className="import-token__link"
-                      onClick={() =>
-                        history.push(`${ADVANCED_ROUTE}#token-description`)
-                      }
-                    >
-                      {t('enableFromSettings')}
-                    </Button>,
-                  ])
-                : this.context.t('tokenDetectionAnnouncement', [
-                    <Button
-                      type="link"
-                      key="token-detection-announcement"
-                      className="import-token__link"
-                      onClick={() => history.push(`${EXPERIMENTAL_ROUTE}`)}
-                    >
-                      {t('enableFromSettings')}
-                    </Button>,
-                  ])
-            }
+            message={t('tokenDetectionAlertMessage', [
+              networkName,
+              <Button
+                type="link"
+                key="token-detection-announcement"
+                className="import-token__link"
+                onClick={() =>
+                  history.push(`${ADVANCED_ROUTE}#token-description`)
+                }
+              >
+                {t('enableFromSettings')}
+              </Button>,
+            ])}
             withRightButton
             useIcon
             iconFillColor="var(--color-primary-default)"

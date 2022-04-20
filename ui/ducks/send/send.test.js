@@ -645,7 +645,6 @@ describe('Send Slice', () => {
           payload: {
             chainId: '',
             tokens: [],
-            useTokenDetection: true,
             tokenAddressList: [],
           },
         };
@@ -668,7 +667,6 @@ describe('Send Slice', () => {
           payload: {
             chainId: '0x55',
             tokens: [],
-            useTokenDetection: true,
             tokenAddressList: [],
           },
         };
@@ -692,7 +690,6 @@ describe('Send Slice', () => {
           payload: {
             chainId: '',
             tokens: [],
-            useTokenDetection: true,
             tokenAddressList: [],
           },
         };
@@ -721,7 +718,6 @@ describe('Send Slice', () => {
           payload: {
             chainId: '0x4',
             tokens: [],
-            useTokenDetection: true,
             tokenAddressList: ['0x514910771af9ca656af840dff83e8264ecf986ca'],
           },
         };
@@ -1136,7 +1132,6 @@ describe('Send Slice', () => {
             provider: {
               chainId: '0x4',
             },
-            useTokenDetection: true,
             tokenList: {
               0x514910771af9ca656af840dff83e8264ecf986ca: {
                 address: '0x514910771af9ca656af840dff83e8264ecf986ca',
@@ -1555,7 +1550,6 @@ describe('Send Slice', () => {
             chainId: '',
           },
           tokens: [],
-          useTokenDetection: true,
           tokenList: {
             '0x514910771af9ca656af840dff83e8264ecf986ca': {
               address: '0x514910771af9ca656af840dff83e8264ecf986ca',
@@ -1608,7 +1602,6 @@ describe('Send Slice', () => {
         expect(store.getActions()[1].payload).toStrictEqual({
           chainId: '',
           tokens: [],
-          useTokenDetection: true,
           tokenAddressList: ['0x514910771af9ca656af840dff83e8264ecf986ca'],
         });
       });
@@ -1831,7 +1824,6 @@ describe('Send Slice', () => {
               chainId: '',
             },
             tokens: [],
-            useTokenDetection: true,
             tokenList: {
               0x514910771af9ca656af840dff83e8264ecf986ca: {
                 address: '0x514910771af9ca656af840dff83e8264ecf986ca',

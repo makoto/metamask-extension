@@ -41,7 +41,6 @@ import {
   getTargetAccount,
   getIsNonStandardEthChain,
   checkNetworkAndAccountSupports1559,
-  getUseTokenDetection,
   getTokenList,
   getAddressBookEntryOrAccountName,
   getIsMultiLayerFeeNetwork,
@@ -577,7 +576,6 @@ export const initializeSendState = createAsyncThunk(
       gasTotal: addHexPrefix(calcGasTotal(gasLimit, gasPrice)),
       gasEstimatePollToken,
       eip1559support,
-      useTokenDetection: getUseTokenDetection(state),
       tokenAddressList: Object.keys(getTokenList(state)),
     };
   },
@@ -1341,7 +1339,6 @@ const slice = createSlice({
             payload: {
               chainId: action.payload.chainId,
               tokens: action.payload.tokens,
-              useTokenDetection: action.payload.useTokenDetection,
               tokenAddressList: action.payload.tokenAddressList,
             },
           });
@@ -1597,12 +1594,10 @@ export function updateRecipientUserInput(userInput) {
     const state = getState();
     const chainId = getCurrentChainId(state);
     const tokens = getTokens(state);
-    const useTokenDetection = getUseTokenDetection(state);
     const tokenAddressList = Object.keys(getTokenList(state));
     debouncedValidateRecipientUserInput(dispatch, {
       chainId,
       tokens,
-      useTokenDetection,
       tokenAddressList,
     });
   };
